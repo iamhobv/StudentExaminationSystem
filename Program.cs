@@ -1,8 +1,12 @@
 
 using System.Diagnostics;
+using System.Text;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using StudentExamSystem.Data;
+using StudentExamSystem.Models;
 using StudentExamSystem.Services;
 
 namespace StudentExamSystem
@@ -31,6 +35,32 @@ namespace StudentExamSystem
                 .LogTo(log => Debug.WriteLine(log), LogLevel.Information);
             });
 
+            builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 8;
+                options.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<DataBaseContext>();
+
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.SaveToken = true;
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new()
+                    {
+                        ValidateIssuer = false,
+                        ValidIssuer = builder.Configuration["JWT:Iss"],
+                        ValidateAudience = false,
+                        ValidAudience = builder.Configuration["JWT:Aud"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+                    };
+                });
 
             builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
