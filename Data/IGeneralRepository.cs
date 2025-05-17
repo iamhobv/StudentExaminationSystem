@@ -1,4 +1,6 @@
 ﻿using System.Linq.Expressions;
+using StudentExamSystem.CQRS.Exams.Queries;
+using StudentExamSystem.DTOs.QuestionDTOs;
 using StudentExamSystem.Models;
 
 namespace StudentExamSystem.Data
