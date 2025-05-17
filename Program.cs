@@ -31,7 +31,7 @@ namespace StudentExamSystem
 
             builder.Services.AddDbContext<DataBaseContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("CS"))
+                options.UseSqlServer(builder.Configuration.GetConnectionString("OnlineCS"))
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
                 .LogTo(log => Debug.WriteLine(log), LogLevel.Information);
             });

@@ -76,8 +76,8 @@ namespace StudentExamSystem.Controllers
             };
         }
 
-        [HttpGet("Questions")]
 
+        [HttpGet("ExamQuestions")]
         public async Task<ActionResult<GeneralResponse>> GetAllQeustions()
         {
             var res = await mediator.Send(new GetAllQuestionsQuesry());
@@ -87,5 +87,69 @@ namespace StudentExamSystem.Controllers
                 Data = res
             };
         }
+
+
+        [HttpGet("TeacherQuestions")]
+        public async Task<ActionResult<GeneralResponse>> GetAllQeustionsForTeachers()
+        {
+            var res = await mediator.Send(new GetQuestionsForTeachers());
+            return new GeneralResponse()
+            {
+                IsPass = true,
+                Data = res
+            };
+        }
+
+        [HttpPut("EditQuestion")]
+        public async Task<ActionResult<GeneralResponse>> EditQuestion(EditQeustionDTO editQeustion)
+        {
+            if (ModelState.IsValid)
+            {
+                EditQuestionCommand questionCommand = editQeustion.Map<EditQuestionCommand>();
+
+                var res = await mediator.Send(questionCommand);
+                if (res)
+                {
+                    return new GeneralResponse()
+                    {
+                        IsPass = true,
+                        Data = "question updated"
+                    };
+                }
+                return new GeneralResponse()
+                {
+                    IsPass = false,
+                    Data = "wronge question selected"
+                };
+            }
+            return new GeneralResponse()
+            {
+                IsPass = false,
+                Data = ModelState
+            };
+        }
+
+        [HttpDelete("DeleteQeustion/{QuestionId:int}")]
+        public async Task<ActionResult<GeneralResponse>> DeleteQeustion(int QuestionId)
+        {
+
+
+            var res = await mediator.Send(new DeleteQuestionCommand() { QuestionId = QuestionId });
+            if (res)
+            {
+                return new GeneralResponse()
+                {
+                    IsPass = true,
+                    Data = "question deleted"
+                };
+            }
+            return new GeneralResponse()
+            {
+                IsPass = false,
+                Data = "wronge question selected"
+            };
+        }
+
+
     }
 }

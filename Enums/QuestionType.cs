@@ -3,6 +3,7 @@ namespace StudentExamSystem.Enums
 {
     public class QuestionType
     {
+        [Flags]
         public enum QuestionTypes
 
         {
