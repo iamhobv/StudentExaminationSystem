@@ -6,6 +6,7 @@ namespace StudentExamSystem.Data
     public interface IGeneralRepository<T> where T : BaseModel
     {
         void Add(T Item);
+        void AddList(List<T> Items);
         void Update(T Item);
         void Delete(T Item);
         void Remove(int Id);

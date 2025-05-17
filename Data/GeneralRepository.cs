@@ -15,7 +15,10 @@ namespace StudentExamSystem.Data
         {
             context.Set<T>().Add(Item);
         }
-
+        public void AddList(List<T> Items)
+        {
+            context.Set<T>().AddRange(Items);
+        }
         public IQueryable<T> GetFilter(Expression<Func<T, bool>> expression)
         {
             return context.Set<T>().Where(expression);

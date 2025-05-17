@@ -25,7 +25,8 @@ namespace StudentExamSystem
             builder.Services.AddSwaggerGen();
 
 
-
+            builder.Services.AddScoped<IGeneralRepository<Question>, GeneralRepository<Question>>();
+            builder.Services.AddScoped<IGeneralRepository<MCQAnswerOptions>, GeneralRepository<MCQAnswerOptions>>();
 
 
             builder.Services.AddDbContext<DataBaseContext>(options =>
