@@ -20,8 +20,14 @@ namespace StudentExamSystem.DTOs.QuestionDTOs
             CreateMap<Question, GetQuestionDTO>()
                 .ForMember(dst => dst.QuestionId, opts => opts.MapFrom(src => src.ID))
                 .ReverseMap();
+            CreateMap<Question, GetTeacherQuestionDTO>()
+                .ForMember(dst => dst.QuestionId, opts => opts.MapFrom(src => src.ID))
+                .ReverseMap();
             //CreateMap<MCQAnswerOptions, String>()
             //                    .ForMember(dst => dst., opts => opts.MapFrom(src => src.Option)).ReverseMap();
+
+
+            CreateMap<EditQeustionDTO, EditQuestionCommand>().ReverseMap();
 
         }
     }

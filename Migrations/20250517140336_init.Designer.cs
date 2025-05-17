@@ -12,7 +12,7 @@ using StudentExamSystem.Data;
 namespace StudentExamSystem.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250516182934_init")]
+    [Migration("20250517140336_init")]
     partial class init
     {
         /// <inheritdoc />
