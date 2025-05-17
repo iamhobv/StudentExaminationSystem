@@ -1,16 +1,4 @@
-﻿using System.Threading.Tasks;
-using MediatR;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using StudentExamSystem.CQRS.Questions.Commands;
-using StudentExamSystem.CQRS.Questions.Orchesterator;
-using StudentExamSystem.CQRS.Questions.Queries;
-using StudentExamSystem.Data;
-using StudentExamSystem.DTOs.QuestionDTOs;
-using StudentExamSystem.Services;
-using static StudentExamSystem.Enums.QuestionType;
-
-namespace StudentExamSystem.Controllers
+﻿namespace StudentExamSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
