@@ -1,0 +1,12 @@
+﻿using StudentExamSystem.Models;
+
+namespace StudentExamSystem.DTOs.QuestionDTOs
+{
+    public class ExamResultDTO
+    {
+        public string Title { get; set; }
+        public TimeOnly Duration { get; set; }
+        public List<QuestionDTO> questions { get; set; }
+        public List<StudentAnswerDTO> studentAnswers { get; set; }
+    }
+}
