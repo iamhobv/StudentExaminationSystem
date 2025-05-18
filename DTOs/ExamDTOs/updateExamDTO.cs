@@ -2,9 +2,9 @@
 {
     public class updateExamDTO
     {
-        public string Title { get; set; }
+        public int ExamId { get; set; }
+        public string? Title { get; set; }
         public TimeOnly? Duration { get; set; }
-
-        public List<int> QuestionIds { get; set; }
+        public List<int>? QuestionID { get; set; }
     }
 }

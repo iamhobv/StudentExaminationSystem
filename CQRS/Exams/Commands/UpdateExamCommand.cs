@@ -6,9 +6,9 @@ namespace StudentExamSystem.CQRS.Exams.Commands
         public int id { get; set; }
         public updateExamDTO UpdateExam { get; }
 
-        public UpdateExamCommand(int id, updateExamDTO updateExam)
+        public UpdateExamCommand( updateExamDTO updateExam)
         {
-            this.id = id;
+            //this.id = id;
             UpdateExam = updateExam;
         }
     }

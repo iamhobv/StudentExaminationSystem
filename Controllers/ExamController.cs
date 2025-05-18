@@ -1,5 +1,6 @@
 ﻿
 using StudentExamSystem.CQRS.Exams.Commands;
+using StudentExamSystem.CQRS.Exams.Orchesterator;
 
 namespace StudentExamSystem.Controllers
 {
@@ -26,16 +27,30 @@ namespace StudentExamSystem.Controllers
         }
         #endregion
 
+        //#region update Exam
+        //[HttpPut("{id:int}")] //api/Exam
+        //public async Task<IActionResult> UpdateExam(int id,updateExamDTO Exam)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return BadRequest(ModelState);
+
+        //    var result = await mediator.Send(new UpdateExamCommand(id, Exam) { id=id});
+        //    return Ok(result);
+        //}
+        //#endregion
+
+
         #region update Exam
         [HttpPut("{id:int}")] //api/Exam
-        public async Task<IActionResult> UpdateExam(int id,updateExamDTO Exam)
+        public async Task<IActionResult> UpdateExam(int id, updateExamDTO Exam)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await mediator.Send(new UpdateExamCommand(id, Exam) { id=id});
+            var result = await mediator.Send(new UpdateExamAddQuestionOrchesterator(updateExamDTO) );
             return Ok(result);
         }
         #endregion
+
     }
 }
