@@ -27,6 +27,7 @@ namespace StudentExamSystem
 
             builder.Services.AddScoped<IGeneralRepository<Question>, GeneralRepository<Question>>();
             builder.Services.AddScoped<IGeneralRepository<MCQAnswerOptions>, GeneralRepository<MCQAnswerOptions>>();
+            builder.Services.AddScoped<IGeneralRepository<Exam>, GeneralRepository<Exam>>();
 
 
             builder.Services.AddDbContext<DataBaseContext>(options =>
