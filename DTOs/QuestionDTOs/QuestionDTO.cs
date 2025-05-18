@@ -4,6 +4,7 @@ using static StudentExamSystem.Enums.QuestionType;
 namespace StudentExamSystem.DTOs.QuestionDTOs
 {
     public class QuestionDTO : BaseModel
+    public class QuestionDTO
     {
         public string QuestionBody { get; set; }
         public QuestionTypes QuestionType { get; set; }
@@ -12,5 +13,7 @@ namespace StudentExamSystem.DTOs.QuestionDTOs
 
         public string StudentQuestionAnswer { get; set; }
 
+        public int Id { get; set; }
+        public string QuestionText { get; set; }
     }
 }

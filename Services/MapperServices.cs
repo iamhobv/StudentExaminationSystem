@@ -23,5 +23,10 @@ namespace StudentExamSystem.Services
         {
             return Mapper.Map<TDestination>(source);
         }
+
+        public static TDestination Map<TSourse, TDestination>(this TSourse source, TDestination destination)
+        {
+            return Mapper.Map(source, destination);
+        }
     }
 }
