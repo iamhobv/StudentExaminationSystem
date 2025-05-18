@@ -13,14 +13,18 @@ namespace StudentExamSystem.CQRS.Exams.Queries
     }
     public class ViewResultOfExamHandler : IRequestHandler<ViewResultOfExam, ExamResultDTO>
     {
-        private readonly DataBaseContext context;
-        public ViewResultOfExamHandler(DataBaseContext context)
+        private readonly IGeneralRepository<StudentAnswer> studentRepo;
+        private readonly IGeneralRepository<Exam> ExamRepo;
+
+
+        public ViewResultOfExamHandler(IGeneralRepository<StudentAnswer> studentRepo,IGeneralRepository<Exam> ExamRepo)
         {
-            this.context = context;
+            this.studentRepo = studentRepo;
+            this.ExamRepo = ExamRepo;
         }
         public async Task<ExamResultDTO> Handle(ViewResultOfExam request, CancellationToken cancellationToken)
         {
-            var exam = await context.Exams
+            var exam = await ExamRepo.GetAll()
               .Include(e => e.ExamQuestions)
               .ThenInclude(eq => eq.Question)
              .FirstOrDefaultAsync(e => e.ID == request.ExamId);
@@ -30,7 +34,7 @@ namespace StudentExamSystem.CQRS.Exams.Queries
                 return new ExamResultDTO();
             }
 
-            var studentAnswer = context.StudentAnswers.Where(s=>s.ExamID== request.ExamId&& s.StudentID == request.StudentId).Select(s=>new StudentAnswerDTO
+            var studentAnswer = studentRepo.GetAll().Where(s=>s.ExamID== request.ExamId&& s.StudentID == request.StudentId).Select(s=>new StudentAnswerDTO
             {
                 QuestionID = s.QuestionID,
                 StudentQuestionAnswer = s.StudentQuestionAnswer

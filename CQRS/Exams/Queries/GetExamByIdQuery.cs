@@ -16,15 +16,15 @@ namespace StudentExamSystem.CQRS.Exams.Queries
     }
     public class GetExamByIdHandler : IRequestHandler<GetExamByIdQuery,List<TakeExamDTO>>
     {
-        private readonly DataBaseContext context;
-        public GetExamByIdHandler(DataBaseContext context)
+        private readonly IGeneralRepository<Exam> repository;
+        public GetExamByIdHandler(DataBaseContext context,IGeneralRepository<Exam> repository)
         {
-            this.context = context;
+            this.repository = repository;
         }
 
         public async Task<List<TakeExamDTO>> Handle(GetExamByIdQuery request, CancellationToken cancellationToken)
         {
-            var exam = await context.Exams
+            var exam = await repository.GetAll()
               .Include(e => e.ExamQuestions)
               .ThenInclude(eq => eq.Question)
              .FirstOrDefaultAsync(e => e.ID == request.Id);
