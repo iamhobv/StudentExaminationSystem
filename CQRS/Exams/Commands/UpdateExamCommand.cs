@@ -1,14 +1,13 @@
-﻿
-namespace StudentExamSystem.CQRS.Exams.Commands
+﻿namespace StudentExamSystem.CQRS.Exams.Commands
 {
     public class UpdateExamCommand : IRequest<ResponseDTO<ExamDTO>>
     {
         public int id { get; set; }
         public updateExamDTO UpdateExam { get; }
 
-        public UpdateExamCommand( updateExamDTO updateExam)
+        public UpdateExamCommand(int id, updateExamDTO updateExam)
         {
-            //this.id = id;
+            this.id = id;
             UpdateExam = updateExam;
         }
     }
@@ -24,18 +23,30 @@ namespace StudentExamSystem.CQRS.Exams.Commands
         {
             try
             {
-                var updatedExam = repository.GetByID(request.id);
-                if (updatedExam == null)
+                var existingExam = repository.GetByID(request.id);
+
+                if (existingExam == null)
                 {
                     return Task.FromResult(ResponseDTO<ExamDTO>.Error(ErrorCode.NotFound, "Exam not found"));
                 }
 
-                request.UpdateExam.Map(updatedExam);
+                //request.UpdateExam.Map(existingExam);
 
-                repository.Update(updatedExam);
+                if (request.UpdateExam.Title != null)
+                {
+                    existingExam.Title = request.UpdateExam.Title;
+                }
+
+                if (request.UpdateExam.Duration.HasValue)
+                {
+                    existingExam.Duration = request.UpdateExam.Duration.Value;
+                }
+
+                repository.Update(existingExam);
                 repository.Save();
 
-                var UpdateExamDto = updatedExam.Map<ExamDTO>();
+                var UpdateExamDto = existingExam.Map<ExamDTO>();
+
                 return Task.FromResult(ResponseDTO<ExamDTO>.Success(UpdateExamDto, "Exam Updated successfully"));
 
             }
