@@ -1,5 +1,4 @@
 ﻿using System.Linq.Expressions;
-using StudentExamSystem.Models;
 
 namespace StudentExamSystem.Data
 {
@@ -56,5 +55,7 @@ namespace StudentExamSystem.Data
         {
             context.SaveChanges();
         }
+
+
     }
 }
