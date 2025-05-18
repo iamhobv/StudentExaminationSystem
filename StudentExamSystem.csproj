@@ -31,7 +31,6 @@
 		<Folder Include="CQRS\StudentExams\Commands\" />
 		<Folder Include="CQRS\StudentExams\Orchesterator\" />
 		<Folder Include="CQRS\StudentExams\Queries\" />
-		<Folder Include="CQRS\Exams\Commands\" />
 		<Folder Include="CQRS\Exams\Orchesterator\" />
 		<Folder Include="CQRS\Exams\Queries\" />
 		<Folder Include="CQRS\MCQOtions\Orchesterator\" />
