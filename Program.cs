@@ -30,6 +30,7 @@ namespace StudentExamSystem
             builder.Services.AddScoped<IGeneralRepository<Exam>, GeneralRepository<Exam>>();
 
 
+
             builder.Services.AddDbContext<DataBaseContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("OnlineCS"))
