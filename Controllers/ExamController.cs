@@ -47,7 +47,7 @@ namespace StudentExamSystem.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var result = await mediator.Send(new UpdateExamAddQuestionOrchesterator(updateExamDTO) );
+            var result = await mediator.Send(new UpdateExamAddQuestionOrchesterator(Exam));
             return Ok(result);
         }
         #endregion

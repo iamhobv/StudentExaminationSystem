@@ -4,9 +4,9 @@ using StudentExamSystem.CQRS.Exams.Commands;
 
 namespace StudentExamSystem.CQRS.Exams.Orchesterator
 {
-    public class UpdateExamAddQuestionOrchesterator:IRequest<bool>
+    public class UpdateExamAddQuestionOrchesterator : IRequest<bool>
     {
-        
+
         public UpdateExamAddQuestionOrchesterator(updateExamDTO examDTO)
         {
             ExamDTO = examDTO;
@@ -16,11 +16,11 @@ namespace StudentExamSystem.CQRS.Exams.Orchesterator
     public class UpdateExamAddQuestionOrchesteratorHandler : IRequestHandler<UpdateExamAddQuestionOrchesterator, bool>
     {
         private readonly DataBaseContext context;
-        private readonly Mediator mediator;
+        private readonly IMediator mediator;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UpdateExamAddQuestionOrchesteratorHandler(IGeneralRepository<Exam> repository , DataBaseContext context ,Mediator mediator, IHttpContextAccessor httpContextAccessor , UserManager<ApplicationUser> userManager)
+        public UpdateExamAddQuestionOrchesteratorHandler(IGeneralRepository<Exam> repository, DataBaseContext context, IMediator mediator, IHttpContextAccessor httpContextAccessor, UserManager<ApplicationUser> userManager)
         {
             this.context = context;
             this.mediator = mediator;
@@ -38,7 +38,7 @@ namespace StudentExamSystem.CQRS.Exams.Orchesterator
 
             foreach (var q in request.ExamDTO.QuestionID)
             {
-               await mediator.Send(new AddQuestionToExamCommand(request.ExamDTO.ExamId, q), cancellationToken);
+                await mediator.Send(new AddQuestionToExamCommand(request.ExamDTO.ExamId, q), cancellationToken);
             }
 
 
