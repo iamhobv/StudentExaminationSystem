@@ -42,6 +42,7 @@ namespace StudentExamSystem.Controllers
 
                 if (!userManager.Users.Any())
                 {
+                    registerFromReq.IsTeacher = true;
                     if (registerFromReq.IsTeacher)
                     {
                         ApplicationRole StudentRole = new ApplicationRole()
