@@ -24,17 +24,19 @@ namespace StudentExamSystem
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("MyPolicy", policy =>
+                    policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+                );
+            });
+            builder.Services.AddScoped<IGeneralRepository<Exam>, GeneralRepository<Exam>>();
+            builder.Services.AddScoped<IGeneralRepository<ExamQuestion>, GeneralRepository<ExamQuestion>>();
 
             builder.Services.AddScoped<IGeneralRepository<Question>, GeneralRepository<Question>>();
             builder.Services.AddScoped<IGeneralRepository<MCQAnswerOptions>, GeneralRepository<MCQAnswerOptions>>();
-            builder.Services.AddScoped<IGeneralRepository<Exam>, GeneralRepository<Exam>>();
-
-            builder.Services.AddScoped<IGeneralRepository<Exam>, GeneralRepository<Exam>>();
-            builder.Services.AddScoped<IGeneralRepository<ExamQuestion>, GeneralRepository<ExamQuestion>>();
-            builder.Services.AddScoped(typeof(IGeneralRepository<>), typeof(GeneralRepository<>));
-
-            //builder.Services.AddScoped<IGeneralRepository<UpdateExamAddQuestionOrchesterator>, GeneralRepository<UpdateExamAddQuestionOrchesterator>>();
+            builder.Services.AddScoped<IGeneralRepository<StudentAnswer>, GeneralRepository<StudentAnswer>>();
+            builder.Services.AddScoped<IGeneralRepository<StudentExam>, GeneralRepository<StudentExam>>();
 
 
 
@@ -100,7 +102,7 @@ namespace StudentExamSystem
             //{
             app.UseSwagger();
                 app.UseSwaggerUI();
-            //}
+            }
 
             app.UseAuthorization();
 

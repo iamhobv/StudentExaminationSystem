@@ -42,6 +42,7 @@ namespace StudentExamSystem.Controllers
 
                 if (!userManager.Users.Any())
                 {
+                    registerFromReq.IsTeacher = true;
                     if (registerFromReq.IsTeacher)
                     {
                         ApplicationRole StudentRole = new ApplicationRole()
@@ -219,11 +220,15 @@ namespace StudentExamSystem.Controllers
                     user = await userManager.FindByNameAsync(loginFromRequest.UserName);
                 }
 
-                if (user == null)
+                if (user == null && loginFromRequest.UserName.Contains("@"))
                 {
-                    user = await userManager.FindByEmailAsync(loginFromRequest.Email);
+                    user = await userManager.FindByEmailAsync(loginFromRequest.UserName);
                 }
 
+                //if (user == null)
+                //{
+                //    user = await userManager.FindByEmailAsync(loginFromRequest.Email);
+                //}
 
                 if (user != null)
                 {
@@ -272,11 +277,11 @@ namespace StudentExamSystem.Controllers
                     }
 
                 }
-                ModelState.AddModelError("newError", "Invalid Account");
+                //ModelState.AddModelError("newError", "Invalid Account");
                 return new GeneralResponse()
                 {
                     IsPass = false,
-                    Data = ModelState
+                    Data = "Invalid Account"
                 };
             }
             return new GeneralResponse()
