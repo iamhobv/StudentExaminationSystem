@@ -79,15 +79,28 @@ namespace StudentExamSystem
             builder.Services.AddMediatR(opts =>
            opts.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod();
+                });
+            });
+
             var app = builder.Build();
             MapperServices.Mapper = app.Services.GetService<IMapper>();
 
+            app.UseCors("AllowAll");
+
+
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
+            //if (app.Environment.IsDevelopment())
+            //{
+            app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
 
             app.UseAuthorization();
 
