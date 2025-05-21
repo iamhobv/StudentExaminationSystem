@@ -21,6 +21,9 @@ namespace StudentExamSystem.DTOs.ExamDTOs
             CreateMap<Exam, ExamDTO>()
            .ForMember(dest => dest.QuestionIds,
                     opt => opt.MapFrom(src => src.ExamQuestions.Select(eq => eq.QuestionID)));
+
+
+            CreateMap<Exam, ShowAllExamToTeacherDTO>().ReverseMap();
         }
     }
 }

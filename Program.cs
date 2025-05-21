@@ -102,7 +102,8 @@ namespace StudentExamSystem
             //{
             app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+            //}
+            app.UseCors("MyPolicy");
 
             app.UseAuthorization();
 
