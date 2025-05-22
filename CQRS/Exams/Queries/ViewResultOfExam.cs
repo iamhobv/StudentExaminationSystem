@@ -46,7 +46,7 @@ namespace StudentExamSystem.CQRS.Exams.Queries
             {
                 var studentAnswer = studentAnswers
                  .FirstOrDefault(s => s.QuestionID == eq.QuestionID)?
-                .StudentQuestionAnswer?
+                .StudentQuestionAnswer
                 .Trim();
 
                 if (studentAnswer != null &&
