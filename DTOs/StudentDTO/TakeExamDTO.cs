@@ -1,6 +1,6 @@
 ﻿using static StudentExamSystem.Enums.QuestionType;
 
-namespace StudentExamSystem.DTOs.QuestionDTOs
+namespace StudentExamSystem.DTOs.Student
 {
     public class TakeExamDTO
     {

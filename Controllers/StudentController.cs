@@ -2,8 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentExamSystem.CQRS.Exams.Queries;
+using StudentExamSystem.CQRS.StudentAnswers.Orchesterator;
 using StudentExamSystem.Data;
-using StudentExamSystem.DTOs.QuestionDTOs;
+using StudentExamSystem.DTOs.Student;
 
 namespace StudentExamSystem.Controllers
 {
@@ -75,9 +76,28 @@ namespace StudentExamSystem.Controllers
             });
 
         }
-
-
         #endregion
+
+        #region Submit
+        [HttpPut("submit")]
+        public async Task<ActionResult<GeneralResponse>> Submit(SubmitExamDTO submitExamDTO)
+        {
+            bool result = await mediator.Send(new Submit(submitExamDTO.StudentAnswerDTO, submitExamDTO.studentExamDTO));
+            if (result == true)
+            {
+
+                return Ok(new GeneralResponse
+                {
+                    IsPass = true
+                });
+            }
+            return Ok(new GeneralResponse
+            {
+                IsPass = false
+            });
+        }
+        #endregion
+
 
     }
 }

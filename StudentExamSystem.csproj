@@ -24,10 +24,7 @@
 	<ItemGroup>
 		<Folder Include="CQRS\ExamQuestions\Orchesterator\" />
 		<Folder Include="CQRS\ExamQuestions\Queries\" />
-		<Folder Include="CQRS\StudentAnswers\Commands\" />
-		<Folder Include="CQRS\StudentAnswers\Orchesterator\" />
 		<Folder Include="CQRS\StudentAnswers\Queries\" />
-		<Folder Include="CQRS\StudentExams\Commands\" />
 		<Folder Include="CQRS\StudentExams\Orchesterator\" />
 		<Folder Include="CQRS\StudentExams\Queries\" />
 		<Folder Include="CQRS\Exams\Orchesterator\" />
