@@ -54,12 +54,34 @@ namespace StudentExamSystem.Controllers
         }
         #endregion
 
+        #region GetExamResultsForTeacher
         [HttpGet("results/{examId}")]
         public async Task<IActionResult> GetExamResultsForTeacher(int examId)
         {
             var response = await mediator.Send(new ShowResultExamToTeacher(examId));
             return Ok(response);
         }
+        #endregion
+
+
+        #region ShowAllExamsToTeacher
+        [HttpGet]
+        public async Task<IActionResult> ShowAllExams()
+        {
+            var response = await mediator.Send(new ShowAllExamsToTeacherQuery());
+            return Ok(response);
+        }
+        #endregion
+
+
+        #region DeleteExam
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteExam(int id)
+        {
+            var response = await mediator.Send(new DeleteExamCommand(id));
+            return Ok(response);
+        }
+        #endregion
 
     }
 }
