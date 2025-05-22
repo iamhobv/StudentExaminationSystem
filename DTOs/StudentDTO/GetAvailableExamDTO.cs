@@ -1,4 +1,4 @@
-﻿namespace StudentExamSystem.DTOs.QuestionDTOs
+﻿namespace StudentExamSystem.DTOs.Student
 {
     public class GetAvailableExamDTO
     {

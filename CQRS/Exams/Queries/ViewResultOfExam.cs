@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using StudentExamSystem.Data;
-using StudentExamSystem.DTOs.QuestionDTOs;
+using StudentExamSystem.DTOs.Student;
 using StudentExamSystem.Models;
 
 namespace StudentExamSystem.CQRS.Exams.Queries

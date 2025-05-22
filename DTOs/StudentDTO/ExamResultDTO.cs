@@ -1,6 +1,6 @@
 ﻿using StudentExamSystem.Models;
 
-namespace StudentExamSystem.DTOs.QuestionDTOs
+namespace StudentExamSystem.DTOs.Student
 {
     public class ExamResultDTO
     {
