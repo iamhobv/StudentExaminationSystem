@@ -10,9 +10,7 @@ namespace StudentExamSystem.DTOs.QuestionDTOs
         public int QuestionMark { get; set; }
         public string CorrectAnswer { get; set; }
 
-        public string StudentQuestionAnswer { get; set; }
+        public string? StudentQuestionAnswer { get; set; }
 
-        public int Id { get; set; }
-        public string QuestionText { get; set; }
     }
 }

@@ -20,7 +20,7 @@ namespace StudentExamSystem.CQRS.Exams.Queries
 
         public async Task<List<GetAvailableExamDTO>> Handle(GetAvailableExamsQuery request, CancellationToken cancellationToken)
         {
-            var Exams = await repository.GetAll().Select(e => new GetAvailableExamDTO { 
+            var Exams = await repository.GetAll().Where(e=>e.IsDeleted == false).Select(e => new GetAvailableExamDTO { 
                 Id=e.ID,
                 Title=e.Title,
                 Duration=e.Duration

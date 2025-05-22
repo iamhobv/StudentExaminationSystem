@@ -34,23 +34,43 @@ namespace StudentExamSystem.CQRS.Exams.Queries
                 return new ExamResultDTO();
             }
 
-            var studentAnswer = studentRepo.GetAll().Where(s=>s.ExamID== request.ExamId&& s.StudentID == request.StudentId).Select(s=>new StudentAnswerDTO
+            var studentAnswers = studentRepo.GetAll().Where(s=>s.ExamID== request.ExamId&& s.StudentID == request.StudentId).Select(s=>new StudentAnswerDTO
             {
                 QuestionID = s.QuestionID,
                 StudentQuestionAnswer = s.StudentQuestionAnswer
             }).ToList();
 
+            var totalScore = exam.ExamQuestions
+            .Where(eq => eq.Question != null)
+            .Sum(eq =>
+            {
+                var studentAnswer = studentAnswers
+                 .FirstOrDefault(s => s.QuestionID == eq.QuestionID)?
+                .StudentQuestionAnswer?
+                .Trim();
+
+                if (studentAnswer != null &&
+                    string.Equals(studentAnswer, eq.Question.CorrectAnswer.Trim(), StringComparison.OrdinalIgnoreCase))
+                {
+                    return eq.Question.QuestionMark;
+                }
+
+                return 0;
+            });
+
             var result = new ExamResultDTO()
             { 
                 Title = exam.Title,
                 Duration = exam.Duration,
+                TotalScore = totalScore,
                 questions = exam.ExamQuestions.Select(eq => new QuestionDTO
                 {
                     ID = eq.Question.ID,
                     QuestionBody = eq.Question.QuestionBody,
                     QuestionType = eq.Question.QuestionType,
                     QuestionMark = eq.Question.QuestionMark,
-                    StudentQuestionAnswer = studentAnswer.FirstOrDefault(s => s.QuestionID == eq.QuestionID)?.ToString()
+                    CorrectAnswer = eq.Question.CorrectAnswer,
+                    StudentQuestionAnswer = studentAnswers.FirstOrDefault(s => s.QuestionID == eq.QuestionID)?.StudentQuestionAnswer
                 }).ToList(),
 
             };

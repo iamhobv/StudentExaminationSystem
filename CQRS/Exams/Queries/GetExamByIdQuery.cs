@@ -24,7 +24,7 @@ namespace StudentExamSystem.CQRS.Exams.Queries
 
         public async Task<List<TakeExamDTO>> Handle(GetExamByIdQuery request, CancellationToken cancellationToken)
         {
-            var exam = await repository.GetAll()
+            var exam = await repository.GetAll().Where(e=>e.IsDeleted==false)
               .Include(e => e.ExamQuestions)
               .ThenInclude(eq => eq.Question)
              .FirstOrDefaultAsync(e => e.ID == request.Id);

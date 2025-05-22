@@ -102,7 +102,7 @@ namespace StudentExamSystem
             //{
             app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+
 
             app.UseAuthorization();
 

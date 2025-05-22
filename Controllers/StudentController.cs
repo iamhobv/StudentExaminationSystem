@@ -55,7 +55,7 @@ namespace StudentExamSystem.Controllers
 
         #endregion
         #region view Exam
-        [HttpGet("viewResult/{examId:int}/{studentId:int}")]
+        [HttpGet("viewResult/{examId:int}/{studentId}")]
         public async Task<ActionResult<GeneralResponse>> ViewResult(int examId,string studentId)
         {
             var result = await mediator.Send(new ViewResultOfExam { ExamId = examId,StudentId = studentId});
