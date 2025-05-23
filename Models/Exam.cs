@@ -5,7 +5,7 @@ namespace StudentExamSystem.Models
     public class Exam : BaseModel
     {
         public string Title { get; set; }
-        public TimeOnly Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
 
         [ForeignKey("Teacher")]

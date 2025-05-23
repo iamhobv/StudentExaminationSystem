@@ -49,7 +49,9 @@ namespace StudentExamSystem.CQRS.Exams.Queries
             var result = new TakeExamDTO()
             {
                 ExamTitle = exam.Title,
-                Questions = getQuestions
+
+                Questions = getQuestions,
+                Duration = exam.Duration
             };
             //    .select(eq => new TakeExamDTO
             //{
