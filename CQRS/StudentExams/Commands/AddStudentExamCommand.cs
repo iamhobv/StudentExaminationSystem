@@ -22,7 +22,15 @@ namespace StudentExamSystem.CQRS.StudentExams.Commands
         {
             try
             {
-                StudentExam studentExam = request.StudentExamDTO.Map<StudentExam>();
+                StudentExam studentExam = new StudentExam()
+                {
+                    CreatedAt = DateTime.Now,
+                    ExamID = request.StudentExamDTO.ExamID,
+                    IsDeleted = false,
+                    StartedAt = request.StudentExamDTO.StartedAt,
+                    StudentID = request.StudentExamDTO.StudentID,
+                    SubmittedAt = request.StudentExamDTO.SubmittedAt
+                };
                 generalRepository.Add(studentExam);
                 generalRepository.Save();
                 return Task.FromResult(true);

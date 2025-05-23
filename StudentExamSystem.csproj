@@ -26,7 +26,6 @@
 		<Folder Include="CQRS\ExamQuestions\Queries\" />
 		<Folder Include="CQRS\StudentAnswers\Queries\" />
 		<Folder Include="CQRS\StudentExams\Orchesterator\" />
-		<Folder Include="CQRS\StudentExams\Queries\" />
 		<Folder Include="CQRS\Exams\Orchesterator\" />
 		<Folder Include="CQRS\MCQOtions\Orchesterator\" />
 		<Folder Include="Middlewares\" />

@@ -5,11 +5,12 @@ namespace StudentExamSystem.CQRS.StudentAnswers.Commands
 {
     public class AddStudentAnswerCommand : IRequest<bool>
     {
-        public StudentAnswerDTO StudentAnswerDTO { get; }
-        public AddStudentAnswerCommand(StudentAnswerDTO studentAnswerDTO)
-        {
-            StudentAnswerDTO = studentAnswerDTO;
-        }
+        //public StudentAnswerDTO StudentAnswerDTO { get; }
+        public StudentAnswerDTO StudentAnswerDTO { get; set; }
+        //public AddStudentAnswerCommand(StudentAnswerDTO studentAnswerDTO)
+        //{
+        //    StudentAnswerDTO = studentAnswerDTO;
+        //}
     }
 
     public class AddStudentAnswerHandler : IRequestHandler<AddStudentAnswerCommand, bool>
@@ -23,10 +24,22 @@ namespace StudentExamSystem.CQRS.StudentAnswers.Commands
         {
             try
             {
-                StudentAnswer studentAnswer = request.StudentAnswerDTO.Map<StudentAnswer>();
+                StudentAnswer studentAnswer = new StudentAnswer()
+                {
+                    CreatedAt = DateTime.UtcNow,
+                    ExamID = (int)request.StudentAnswerDTO.ExamID,
+                    IsDeleted = false,
+                    QuestionID = request.StudentAnswerDTO.QuestionID,
+
+                    StudentID = request.StudentAnswerDTO.StudentID,
+                    StudentQuestionAnswer = request.StudentAnswerDTO.StudentQuestionAnswer
+
+
+
+                };
                 generalRepository.Add(studentAnswer);
                 generalRepository.Save();
-                return Task.FromResult(false);
+                return Task.FromResult(true);
             }
             catch (Exception ex)
             {

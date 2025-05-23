@@ -7,34 +7,50 @@ namespace StudentExamSystem.CQRS.StudentAnswers.Orchesterator
 {
     public class Submit : IRequest<bool>
     {
-        public List<StudentAnswerDTO> studentAnswerDTOList { get; }
-        public List<studentExamDTO> studentExamDTOList { get; }
-        public Submit(List<StudentAnswerDTO> studentAnswerDTOList,List<studentExamDTO> studentExamDTOList)
-        {
-            this.studentAnswerDTOList = studentAnswerDTOList;
-            this.studentExamDTOList = studentExamDTOList;
-        }
+        public string StudentID { get; set; }
 
-        public class SubmitHandler : IRequestHandler<Submit,bool>
+        public int ExamID { get; set; }
+        public DateTime StartedAt { get; set; }
+        public DateTime SubmittedAt { get; set; }
+        public List<StudentAnswerDTO> StudentAnswerDTOList { get; set; }
+
+
+        public class SubmitHandler : IRequestHandler<Submit, bool>
         {
             private readonly IMediator mediator;
-            public Task<bool> Handle(Submit request, CancellationToken cancellationToken)
+
+
+            public SubmitHandler(IMediator mediator)
+            {
+                this.mediator = mediator;
+            }
+            public async Task<bool> Handle(Submit request, CancellationToken cancellationToken)
             {
                 try
                 {
-                    foreach (StudentAnswerDTO studentAnswerDTO in request.studentAnswerDTOList)
+                    studentExamDTO studentExamDTO = new studentExamDTO { ExamID = request.ExamID, StartedAt = request.StartedAt, StudentID = request.StudentID, SubmittedAt = request.SubmittedAt };
+                    var AddStudentExamCommandRes = await mediator.Send(new AddStudentExamCommand(studentExamDTO));
+
+
+                    bool AddStudentAnswerCommandRes = false;
+                    foreach (StudentAnswerDTO studentAnswerDTO in request.StudentAnswerDTOList)
                     {
-                        mediator.Send(new AddStudentAnswerCommand(studentAnswerDTO));
+                        studentAnswerDTO.StudentID = request.StudentID;
+                        studentAnswerDTO.ExamID = request.ExamID;
+
+                        AddStudentAnswerCommandRes = await mediator.Send(new AddStudentAnswerCommand() { StudentAnswerDTO = studentAnswerDTO });
                     }
-                    foreach(studentExamDTO studentExamDTO in request.studentExamDTOList)
+
+                    if (AddStudentExamCommandRes && AddStudentAnswerCommandRes)
                     {
-                        mediator.Send(new AddStudentExamCommand(studentExamDTO));
+
+                        return true;
                     }
-                    return Task.FromResult(true);
+                    return false;
                 }
                 catch (Exception ex)
                 {
-                    return Task.FromResult(false);
+                    return false;
                 }
 
             }
