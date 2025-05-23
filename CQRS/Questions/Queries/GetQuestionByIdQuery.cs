@@ -7,7 +7,12 @@ namespace StudentExamSystem.CQRS.Questions.Queries
     public class GetQuestionByIdQuery : IRequest<Question>
     {
         public int Id { get; set; }
+        //public GetQuestionByIdQuery(int id)
+        //{
+        //    Id = id;
+        //}
     }
+
     public class GetQuestionByIdQueryHandler : IRequestHandler<GetQuestionByIdQuery, Question>
     {
         private readonly IGeneralRepository<Question> repository;
