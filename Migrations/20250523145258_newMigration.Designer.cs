@@ -12,8 +12,8 @@ using StudentExamSystem.Data;
 namespace StudentExamSystem.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20250517140336_init")]
-    partial class init
+    [Migration("20250523145258_newMigration")]
+    partial class newMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -234,7 +234,7 @@ namespace StudentExamSystem.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<TimeOnly>("Duration")
+                    b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 
                     b.Property<bool>("IsDeleted")
