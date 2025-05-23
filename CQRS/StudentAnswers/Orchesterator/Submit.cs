@@ -33,12 +33,20 @@ namespace StudentExamSystem.CQRS.StudentAnswers.Orchesterator
 
 
                     bool AddStudentAnswerCommandRes = false;
-                    foreach (StudentAnswerDTO studentAnswerDTO in request.StudentAnswerDTOList)
+                    if (request.StudentAnswerDTOList.Any())
                     {
-                        studentAnswerDTO.StudentID = request.StudentID;
-                        studentAnswerDTO.ExamID = request.ExamID;
 
-                        AddStudentAnswerCommandRes = await mediator.Send(new AddStudentAnswerCommand() { StudentAnswerDTO = studentAnswerDTO });
+                        foreach (StudentAnswerDTO studentAnswerDTO in request.StudentAnswerDTOList)
+                        {
+                            studentAnswerDTO.StudentID = request.StudentID;
+                            studentAnswerDTO.ExamID = request.ExamID;
+
+                            AddStudentAnswerCommandRes = await mediator.Send(new AddStudentAnswerCommand() { StudentAnswerDTO = studentAnswerDTO });
+                        }
+                    }
+                    else
+                    {
+                        AddStudentAnswerCommandRes = true;
                     }
 
                     if (AddStudentExamCommandRes && AddStudentAnswerCommandRes)
