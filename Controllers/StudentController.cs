@@ -82,7 +82,7 @@ namespace StudentExamSystem.Controllers
         [HttpPut("submit")]
         public async Task<ActionResult<GeneralResponse>> Submit(SubmitExamDTO submitExamDTO)
         {
-            bool result = await mediator.Send(new Submit(submitExamDTO.StudentAnswerDTO, submitExamDTO.studentExamDTO));
+            bool result = await mediator.Send(new Submit(submitExamDTO.StudentAnswerDTOList, submitExamDTO.studentExamDTOList));
             if (result == true)
             {
 
