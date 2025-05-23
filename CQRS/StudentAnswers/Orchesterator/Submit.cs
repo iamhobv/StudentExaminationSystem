@@ -7,12 +7,12 @@ namespace StudentExamSystem.CQRS.StudentAnswers.Orchesterator
 {
     public class Submit : IRequest<bool>
     {
-        public List<StudentAnswerDTO> studentAnswerDTO { get; }
-        public List<studentExamDTO> studentExamDTO { get; }
-        public Submit(List<StudentAnswerDTO> studentAnswerDTO,List<studentExamDTO> studentExamDTO)
+        public List<StudentAnswerDTO> studentAnswerDTOList { get; }
+        public List<studentExamDTO> studentExamDTOList { get; }
+        public Submit(List<StudentAnswerDTO> studentAnswerDTOList,List<studentExamDTO> studentExamDTOList)
         {
-            this.studentAnswerDTO = studentAnswerDTO;
-            this.studentExamDTO = studentExamDTO;
+            this.studentAnswerDTOList = studentAnswerDTOList;
+            this.studentExamDTOList = studentExamDTOList;
         }
 
         public class SubmitHandler : IRequestHandler<Submit,bool>
@@ -22,11 +22,11 @@ namespace StudentExamSystem.CQRS.StudentAnswers.Orchesterator
             {
                 try
                 {
-                    foreach (StudentAnswerDTO studentAnswerDTO in request.studentAnswerDTO)
+                    foreach (StudentAnswerDTO studentAnswerDTO in request.studentAnswerDTOList)
                     {
                         mediator.Send(new AddStudentAnswerCommand(studentAnswerDTO));
                     }
-                    foreach(studentExamDTO studentExamDTO in request.studentExamDTO)
+                    foreach(studentExamDTO studentExamDTO in request.studentExamDTOList)
                     {
                         mediator.Send(new AddStudentExamCommand(studentExamDTO));
                     }

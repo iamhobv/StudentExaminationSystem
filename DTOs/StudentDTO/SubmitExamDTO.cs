@@ -2,7 +2,7 @@
 {
     public class SubmitExamDTO
     {
-        public List<StudentAnswerDTO> StudentAnswerDTO { get; set; }
-        public List<studentExamDTO> studentExamDTO { get; set; }
+        public List<StudentAnswerDTO> StudentAnswerDTOList { get; set; }
+        public List<studentExamDTO> studentExamDTOList { get; set; }
     }
 }
