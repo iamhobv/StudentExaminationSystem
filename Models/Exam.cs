@@ -7,7 +7,6 @@ namespace StudentExamSystem.Models
         public string Title { get; set; }
         public TimeSpan Duration { get; set; }
 
-
         [ForeignKey("Teacher")]
         public string TeacherId { get; set; }
 
@@ -16,6 +15,7 @@ namespace StudentExamSystem.Models
         public List<ExamQuestion>? ExamQuestions { get; set; }
         public List<StudentAnswer>? StudentAnswers { get; set; }
         public List<StudentExam>? StudentExams { get; set; }
+
 
 
     }
