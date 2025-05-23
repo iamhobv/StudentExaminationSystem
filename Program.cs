@@ -24,12 +24,7 @@ namespace StudentExamSystem
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("MyPolicy", policy =>
-                    policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
-                );
-            });
+
             builder.Services.AddScoped<IGeneralRepository<Exam>, GeneralRepository<Exam>>();
             builder.Services.AddScoped<IGeneralRepository<ExamQuestion>, GeneralRepository<ExamQuestion>>();
 
@@ -81,27 +76,32 @@ namespace StudentExamSystem
             builder.Services.AddMediatR(opts =>
            opts.RegisterServicesFromAssembly(typeof(Program).Assembly));
 
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowAll", builder =>
+            //    {
+            //        builder.AllowAnyOrigin()
+            //               .AllowAnyHeader()
+            //               .AllowAnyMethod();
+            //    });
+            //});
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll", builder =>
-                {
-                    builder.AllowAnyOrigin()
-                           .AllowAnyHeader()
-                           .AllowAnyMethod();
-                });
+                options.AddPolicy("MyPolicy", policy =>
+                    policy.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+                );
             });
-
             var app = builder.Build();
             MapperServices.Mapper = app.Services.GetService<IMapper>();
 
-            app.UseCors("AllowAll");
+            //app.UseCors("AllowAll");
 
 
             // Configure the HTTP request pipeline.
             //if (app.Environment.IsDevelopment())
             //{
             app.UseSwagger();
-                app.UseSwaggerUI();
+            app.UseSwaggerUI();
 
             //}
             app.UseCors("MyPolicy");
