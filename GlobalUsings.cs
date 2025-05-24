@@ -14,8 +14,11 @@ global using StudentExamSystem.CQRS.Questions.Orchesterator;
 global using StudentExamSystem.CQRS.Questions.Queries;
 global using StudentExamSystem.DTOs.QuestionDTOs;
 global using StudentExamSystem.Services;
-global using static StudentExamSystem.Enums.QuestionType;
+global using StudentExamSystem.CQRS.MCQOtions.Queries;
 
 global using StudentExamSystem.DTOs;
 global using StudentExamSystem.DTOs.ExamDTOs;
 global using StudentExamSystem.Enums;
+
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore;

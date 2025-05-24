@@ -1,5 +1,4 @@
-﻿using static StudentExamSystem.Enums.QuestionType;
-
+﻿
 namespace StudentExamSystem.Models
 {
     public class Question : BaseModel

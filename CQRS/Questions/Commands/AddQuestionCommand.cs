@@ -1,10 +1,4 @@
-﻿using MediatR;
-using StudentExamSystem.Data;
-using StudentExamSystem.DTOs.QuestionDTOs;
-using StudentExamSystem.Models;
-using StudentExamSystem.Services;
-using static StudentExamSystem.Enums.QuestionType;
-
+﻿
 namespace StudentExamSystem.CQRS.Questions.Commands
 {
     public class AddQuestionCommand : IRequest<int>
@@ -19,8 +13,6 @@ namespace StudentExamSystem.CQRS.Questions.Commands
         {
             this.repository = repository;
         }
-
-
         public Task<int> Handle(AddQuestionCommand request, CancellationToken cancellationToken)
         {
 

@@ -6,13 +6,13 @@ using StudentExamSystem.DTOs.QuestionDTOs;
 
 namespace StudentExamSystem.CQRS.Questions.Orchesterator
 {
-    public class AddMCQQuestionOrchesterator : IRequest<bool>
+    public class AddMCQQuestionOrchesterator : IRequest<int>
     {
         public CreateQuestionDTO Question { get; set; }
         public List<string> Options { get; set; }
     }
 
-    public class AddMCQQuestionOrchesteratorHandler : IRequestHandler<AddMCQQuestionOrchesterator, bool>
+    public class AddMCQQuestionOrchesteratorHandler : IRequestHandler<AddMCQQuestionOrchesterator, int>
     {
         private readonly IMediator mediator;
 
@@ -20,15 +20,15 @@ namespace StudentExamSystem.CQRS.Questions.Orchesterator
         {
             this.mediator = mediator;
         }
-        public async Task<bool> Handle(AddMCQQuestionOrchesterator request, CancellationToken cancellationToken)
+        public async Task<int> Handle(AddMCQQuestionOrchesterator request, CancellationToken cancellationToken)
         {
             int questionId = await mediator.Send(new AddQuestionCommand() { Question = request.Question });
             if (questionId != -1)
             {
                 var res = await mediator.Send(new AddMCQOptionsCommand() { QuestionID = questionId, Options = request.Options });
-                return true;
+                return questionId;
             }
-            return false;
+            return -1;
         }
     }
 }

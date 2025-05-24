@@ -1,5 +1,4 @@
-﻿using static StudentExamSystem.Enums.QuestionType;
-
+﻿
 namespace StudentExamSystem.DTOs.QuestionDTOs
 {
     public class CreateQuestionDTO
