@@ -1,5 +1,7 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using StudentExamSystem.Data;
 using StudentExamSystem.DTOs.Student;
 using StudentExamSystem.Models;
@@ -15,12 +17,14 @@ namespace StudentExamSystem.CQRS.Exams.Queries
     {
         private readonly IGeneralRepository<StudentAnswer> studentRepo;
         private readonly IGeneralRepository<Exam> ExamRepo;
+        private readonly IMediator mediator;
 
 
-        public ViewResultOfExamHandler(IGeneralRepository<StudentAnswer> studentRepo,IGeneralRepository<Exam> ExamRepo)
+        public ViewResultOfExamHandler(IGeneralRepository<StudentAnswer> studentRepo,IGeneralRepository<Exam> ExamRepo, IMediator mediator)
         {
             this.studentRepo = studentRepo;
             this.ExamRepo = ExamRepo;
+            this.mediator = mediator;
         }
         public async Task<ExamResultDTO> Handle(ViewResultOfExam request, CancellationToken cancellationToken)
         {
@@ -58,6 +62,18 @@ namespace StudentExamSystem.CQRS.Exams.Queries
                 return 0;
             });
 
+
+            List<GetQuestionDTO> getQuestions = new List<GetQuestionDTO>();
+            foreach (var item in exam.ExamQuestions)
+            {
+                var res = await mediator.Send(new GetExamQuestionsQuery() { ID = item.QuestionID });
+                if (res != null)
+                {
+                    getQuestions.Add(res);
+                }
+
+            }
+
             var result = new ExamResultDTO()
             { 
                 Title = exam.Title,
@@ -70,6 +86,7 @@ namespace StudentExamSystem.CQRS.Exams.Queries
                     QuestionType = eq.Question.QuestionType,
                     QuestionMark = eq.Question.QuestionMark,
                     CorrectAnswer = eq.Question.CorrectAnswer,
+                    Options = getQuestions.FirstOrDefault(q=>q.QuestionId== eq.QuestionID)?.Options,
                     StudentQuestionAnswer = studentAnswers.FirstOrDefault(s => s.QuestionID == eq.QuestionID)?.StudentQuestionAnswer
                 }).ToList(),
 
