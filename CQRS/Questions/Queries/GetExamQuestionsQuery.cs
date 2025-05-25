@@ -1,7 +1,4 @@
 ﻿
-using MediatR;
-using StudentExamSystem.CQRS.MCQOtions.Queries;
-
 namespace StudentExamSystem.CQRS.Questions.Queries
 {
     public class GetExamQuestionsQuery : IRequest<GetQuestionDTO>

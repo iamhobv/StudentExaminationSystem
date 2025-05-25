@@ -1,8 +1,4 @@
-﻿using MediatR;
-using StudentExamSystem.CQRS.Questions.Queries;
-using StudentExamSystem.Data;
-using StudentExamSystem.Models;
-
+﻿
 namespace StudentExamSystem.CQRS.Questions.Commands
 {
     public class DeleteQuestionCommand : IRequest<bool>

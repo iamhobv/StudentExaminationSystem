@@ -1,7 +1,4 @@
-﻿using MediatR;
-using StudentExamSystem.Data;
-using StudentExamSystem.Models;
-
+﻿
 namespace StudentExamSystem.CQRS.Questions.Queries
 {
     public class GetQuestionByIdQuery : IRequest<Question>

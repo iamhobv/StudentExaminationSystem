@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using StudentExamSystem.Models;
-
+﻿
 namespace StudentExamSystem.Data
 {
     public class DataBaseContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>

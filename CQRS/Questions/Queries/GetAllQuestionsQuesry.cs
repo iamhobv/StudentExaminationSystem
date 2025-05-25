@@ -1,12 +1,4 @@
-﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
-using StudentExamSystem.CQRS.MCQOtions.Queries;
-using StudentExamSystem.Data;
-using StudentExamSystem.DTOs.QuestionDTOs;
-using StudentExamSystem.Models;
-using StudentExamSystem.Services;
-using static StudentExamSystem.Enums.QuestionType;
-
+﻿
 namespace StudentExamSystem.CQRS.Questions.Queries
 {
     public class GetAllQuestionsQuesry : IRequest<IEnumerable<GetQuestionDTO>>

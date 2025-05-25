@@ -1,9 +1,4 @@
-﻿using MediatR;
-using StudentExamSystem.CQRS.Questions.Queries;
-using StudentExamSystem.Data;
-using StudentExamSystem.Models;
-using static StudentExamSystem.Enums.QuestionType;
-
+﻿
 namespace StudentExamSystem.CQRS.Questions.Commands
 {
     public class EditQuestionCommand : IRequest<bool>

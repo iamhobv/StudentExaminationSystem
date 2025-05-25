@@ -1,10 +1,4 @@
-﻿using MediatR;
-using StudentExamSystem.CQRS.MCQOtions.Queries;
-using StudentExamSystem.Data;
-using StudentExamSystem.DTOs.QuestionDTOs;
-using static StudentExamSystem.Enums.QuestionType;
-using StudentExamSystem.Models;
-using StudentExamSystem.Services;
+﻿
 
 namespace StudentExamSystem.CQRS.Questions.Queries
 {
